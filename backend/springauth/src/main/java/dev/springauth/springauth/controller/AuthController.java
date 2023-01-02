@@ -29,11 +29,9 @@ import dev.springauth.springauth.repository.AppUserRepository;
 import dev.springauth.springauth.repository.RoleRepository;
 import dev.springauth.springauth.security.jwt.JwtUtils;
 import dev.springauth.springauth.security.services.UserDetailsImpl;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/auth")
-@Slf4j
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -52,7 +50,6 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody SigninDTO signinDTO) {
-        log.info(signinDTO.toString());
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(signinDTO.getUsername(), signinDTO.getPassword()));
 
