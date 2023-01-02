@@ -1,9 +1,13 @@
 package dev.springangularlogin.springangularlogin.repository;
 
-import org.springframework.data.repository.ListCrudRepository;
+import java.util.Optional;
 
-import dev.springangularlogin.springangularlogin.domain.AppUser;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AppUserRepository extends ListCrudRepository<AppUser, Long> {
-    AppUser findByUsername(String username);
+import dev.springangularlogin.springangularlogin.model.AppUser;
+
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+    Optional<AppUser> findByUsername(String username);
+    Boolean existsByUsername(String username);
+    Boolean existsByEmail(String email);
 }

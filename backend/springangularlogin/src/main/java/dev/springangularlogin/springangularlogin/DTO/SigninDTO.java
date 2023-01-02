@@ -3,7 +3,7 @@ package dev.springangularlogin.springangularlogin.DTO;
 import lombok.Data;
 
 @Data
-public class RoleToAppUserDTO {
+public class SigninDTO {
     private String username;
-    private String roleName;
+    private String password;
 }

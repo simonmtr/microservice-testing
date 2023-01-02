@@ -1,11 +1,13 @@
 package dev.springangularlogin.springangularlogin.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import dev.springangularlogin.springangularlogin.domain.AppUser;
-import dev.springangularlogin.springangularlogin.domain.Role;
+import dev.springangularlogin.springangularlogin.model.AppUser;
+import dev.springangularlogin.springangularlogin.model.ERole;
+import dev.springangularlogin.springangularlogin.model.Role;
 import dev.springangularlogin.springangularlogin.repository.AppUserRepository;
 import dev.springangularlogin.springangularlogin.repository.RoleRepository;
 import jakarta.transaction.Transactional;
@@ -34,15 +36,15 @@ public class AppUserServiceImplementation implements AppUserService {
     }
 
     @Override
-    public void addRoleToAppUser(String username, String rolename) {
-        log.info("Adding role {} to user {}", rolename, username);
-        AppUser user = appUserRepository.findByUsername(username);
-        Role role = roleRepository.findByName(rolename);
-        user.getRoles().add(role);
+    public void addRoleToAppUser(String username, ERole eRole) {
+        log.info("Adding role {} to user {}", eRole, username);
+        Optional<AppUser> user = appUserRepository.findByUsername(username);
+        Optional<Role> role = roleRepository.findByName(eRole);
+        user.get().getRoles().add(role.get());
     }
 
     @Override
-    public AppUser getAppUser(String username) {
+    public Optional<AppUser> getAppUser(String username) {
         log.info("Getting user {}", username);
         return appUserRepository.findByUsername(username);
     }

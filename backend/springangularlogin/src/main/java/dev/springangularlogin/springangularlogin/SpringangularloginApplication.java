@@ -1,14 +1,15 @@
 package dev.springangularlogin.springangularlogin;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import dev.springangularlogin.springangularlogin.domain.AppUser;
-import dev.springangularlogin.springangularlogin.domain.Role;
+import dev.springangularlogin.springangularlogin.model.AppUser;
+import dev.springangularlogin.springangularlogin.model.ERole;
+import dev.springangularlogin.springangularlogin.model.Role;
 import dev.springangularlogin.springangularlogin.service.AppUserService;
 
 @SpringBootApplication
@@ -22,19 +23,24 @@ public class SpringangularloginApplication {
 	@Bean
 	CommandLineRunner run(AppUserService appUserService) {
 		return args -> {
-			appUserService.saveRole(new Role(null, "ROLE_USER"));
-			appUserService.saveRole(new Role(null, "ROLE_ADMIN"));
-			appUserService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
+			
+			appUserService.saveRole(new Role(null, ERole.USER));
+			appUserService.saveRole(new Role(null, ERole.ADMIN));
+			appUserService.saveRole(new Role(null, ERole.SUPER_ADMIN));
 
-			appUserService.saveAppUser(new AppUser(null, "user", "user", new ArrayList<>()));
-			appUserService.saveAppUser(new AppUser(null, "admin", "admin", new ArrayList<>()));
-			appUserService.saveAppUser(new AppUser(null, "superadmin", "superadmin", new ArrayList<>()));
+			appUserService.saveAppUser(new AppUser(null, "user", "user", "user@mail.com", new HashSet<>()));
+			appUserService.saveAppUser(new AppUser(null, "mismic", "mismic", "mismic@mail.com", new HashSet<>()));
+			appUserService.saveAppUser(new AppUser(null, "admin", "admin", "admin@mail.com", new HashSet<>()));
+			appUserService.saveAppUser(new AppUser(null, "superadmin", "superadmin", "superadmin@mail.com", new HashSet<>()));
 		
-			appUserService.addRoleToAppUser("user", "ROLE_USER");
-			appUserService.addRoleToAppUser("admin", "ROLE_ADMIN");
-			appUserService.addRoleToAppUser("superadmin", "ROLE_SUPER_ADMIN");
+			appUserService.addRoleToAppUser("user", ERole.USER);
+			appUserService.addRoleToAppUser("admin", ERole.ADMIN);
+			appUserService.addRoleToAppUser("superadmin", ERole.SUPER_ADMIN);
 
-			appUserService.addRoleToAppUser("user", "ROLE_ADMIN");
+			appUserService.addRoleToAppUser("mismic", ERole.USER);
+			appUserService.addRoleToAppUser("mismic", ERole.ADMIN);
+			appUserService.addRoleToAppUser("mismic", ERole.SUPER_ADMIN);
+
 		};
 	}
 
